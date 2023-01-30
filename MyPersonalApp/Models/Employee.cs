@@ -1,8 +1,10 @@
-﻿namespace MyPersonalApp.Models
+﻿using Microsoft.IdentityModel.Tokens;
+
+namespace MyPersonalApp.Models
 {
     public class Employees
     {
-        public int Id { get; set; } 
+        public Guid Id { get; set; } 
         public string Name { get; set; }
         public string Email { get; set; }
         public int Phone { get; set; }

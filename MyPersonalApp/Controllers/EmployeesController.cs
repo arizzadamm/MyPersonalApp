@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyPersonalApp.DAL;
 using MyPersonalApp.Models;
 
 namespace MyPersonalApp.Controllers
@@ -8,14 +9,18 @@ namespace MyPersonalApp.Controllers
     [ApiController]
     public class EmployeesController : ControllerBase
     {
-        [HttpGet]
-        public Employees Get()
+        private readonly IEmployee _employee;
+
+        public EmployeesController(IEmployee employee)
         {
-            Employees _employee  = new()
-            {
-                Id = 1, Name = "Bondan Haryo"
-            };
-            return _employee;
+            _employee = employee;   
+        }    
+        [HttpGet]
+        public IEnumerable<Employees> Get()
+        {
+
+            var results = _employee.GetAll();   
+            return results;
         }
     }
 }
