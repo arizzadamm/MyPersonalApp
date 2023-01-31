@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 using Microsoft.EntityFrameworkCore;
+=======
+>>>>>>> e6eb58c7488093f510233ee9268d82d756604fe7
 using MyPersonalApp.DAL;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,9 +13,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+<<<<<<< HEAD
 //For EF
 builder.Services.AddDbContext<AppDbContext>(options=>options.UseSqlServer(
     builder.Configuration.GetConnectionString("CompanyConnection")));
+=======
+//DI
+builder.Services.AddScoped<IEmployee, EmployeeDAL>();
+>>>>>>> e6eb58c7488093f510233ee9268d82d756604fe7
 
 var app = builder.Build();
 
