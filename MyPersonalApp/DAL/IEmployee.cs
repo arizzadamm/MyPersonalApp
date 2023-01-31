@@ -7,7 +7,7 @@ namespace MyPersonalApp.DAL
     public interface IEmployee
     {
         public IEnumerable<Employees>GetAll();
-        public Employees GetById(UniqueConstraint uniqueConstraint);        
+        public IEnumerable<Employees> GetByName(String Name);        
 
     }
 }

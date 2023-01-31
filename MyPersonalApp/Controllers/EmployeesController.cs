@@ -22,5 +22,12 @@ namespace MyPersonalApp.Controllers
             var results = _employee.GetAll();   
             return results;
         }
+        [HttpGet("GetByName/{Name}")]
+        public IEnumerable<Employees> Get(string Name)
+        {
+
+            var results = _employee.GetByName(Name);
+            return results;
+        }
     }
 }
