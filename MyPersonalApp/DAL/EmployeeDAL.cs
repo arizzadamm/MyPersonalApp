@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using MyPersonalApp.Models;
 using System.Data;
+using System.Linq;
 
 namespace MyPersonalApp.DAL
 {
@@ -10,6 +11,30 @@ namespace MyPersonalApp.DAL
         public EmployeeDAL(IConfiguration config) 
         {
             _config = config;
+        }
+
+        public void Delete(String Oid)
+        {
+            using (SqlConnection conn = new(GetConn()))
+            {
+                string strSql = @"DELETE FROM Employee WHERE Oid=@Oid";
+                SqlCommand cmd = new(strSql, conn);
+                cmd.Parameters.AddWithValue("@Oid",Oid);
+
+                try
+                {
+                    conn.Open();
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                }
+                catch (SqlException SqlEx)
+                {
+
+                    throw new Exception($"Failed To Delete Data: {SqlEx.Message}");
+                }
+
+               
+            }
         }
 
         public IEnumerable<Employees> GetAll()
@@ -127,6 +152,67 @@ namespace MyPersonalApp.DAL
             }
 
         }
+
+        public Employees Insert(Employees employee)
+        {
+            using (SqlConnection conn = new(GetConn()))
+            {
+                List<Employees> listemployee = new();
+                string strSql = @"INSERT INTO Employee (Name,Email,Phone,Address,City,Region,PostalCode,Country) 
+                                  VALUES (@Name,@Email,@Phone,@Address,@City,@Region,@PostalCode,@Country)";
+                SqlCommand cmd = new(strSql, conn);
+                cmd.Parameters.AddWithValue("@Name", employee.Name);
+                cmd.Parameters.AddWithValue("@Email", employee.Email);
+                cmd.Parameters.AddWithValue("@Phone", employee.Phone);
+                cmd.Parameters.AddWithValue("@Address", employee.Address);
+                cmd.Parameters.AddWithValue("@City", employee.City);
+                cmd.Parameters.AddWithValue("@Region", employee.Region);
+                cmd.Parameters.AddWithValue("@PostalCode", employee.PostalCode);
+                cmd.Parameters.AddWithValue("@Country", employee.Country);
+
+                try
+                {
+                    conn.Open();
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                        
+                }
+                catch (SqlException SqlEx)
+                {
+
+                    throw new Exception($"Failed To Insert Data: {SqlEx.Message}");
+                }
+
+                return employee;
+            }
+        }
+
+        public Employees Update(Employees employee)
+        {
+            using (SqlConnection conn = new(GetConn()))
+            {
+                List<Employees> listemployee = new();
+                string strSql = @"UPDATE Employee Set Name = @Name WHERE Oid=@Oid";
+                SqlCommand cmd = new(strSql, conn);
+                cmd.Parameters.AddWithValue("@Name", employee.Name);
+                cmd.Parameters.AddWithValue("@Oid", employee.Id);
+
+                try
+                {
+                    conn.Open();
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                }
+                catch (SqlException SqlEx)
+                {
+
+                    throw new Exception($"Failed To Update Data: {SqlEx.Message}");
+                }
+
+                return employee;    
+
+            }
+        }
+
         private string GetConn()
         {
             return _config.GetConnectionString("CompanyConnection");
