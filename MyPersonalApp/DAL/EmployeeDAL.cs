@@ -8,11 +8,9 @@ namespace MyPersonalApp.DAL
     public class EmployeeDAL : IEmployee
     {
         private readonly IConfiguration _config;
-<<<<<<< HEAD
-        public EmployeeDAL(IConfiguration config)
-=======
+
         public EmployeeDAL(IConfiguration config) 
->>>>>>> e6eb58c7488093f510233ee9268d82d756604fe7
+
         {
             _config = config;
         }
@@ -23,11 +21,7 @@ namespace MyPersonalApp.DAL
             {
                 string strSql = @"DELETE FROM Employee WHERE Oid=@Oid";
                 SqlCommand cmd = new(strSql, conn);
-<<<<<<< HEAD
                 cmd.Parameters.AddWithValue("@Oid", Oid);
-=======
-                cmd.Parameters.AddWithValue("@Oid",Oid);
->>>>>>> e6eb58c7488093f510233ee9268d82d756604fe7
 
                 try
                 {
@@ -41,32 +35,21 @@ namespace MyPersonalApp.DAL
                     throw new Exception($"Failed To Delete Data: {SqlEx.Message}");
                 }
 
-<<<<<<< HEAD
-
-=======
-               
->>>>>>> e6eb58c7488093f510233ee9268d82d756604fe7
             }
         }
 
         public IEnumerable<Employees> GetAll()
         {
-<<<<<<< HEAD
             using (SqlConnection conn = new(GetConn()))
-=======
-            using (SqlConnection conn = new (GetConn()))
->>>>>>> e6eb58c7488093f510233ee9268d82d756604fe7
+
             {
                 List<Employees> listemployee = new();
                 string strSql = @"select * from Employee order by name asc";
                 SqlCommand cmd = new(strSql, conn);
                 conn.Open();
 
-<<<<<<< HEAD
                 SqlDataReader dr = cmd.ExecuteReader();
-=======
-                SqlDataReader dr= cmd.ExecuteReader();
->>>>>>> e6eb58c7488093f510233ee9268d82d756604fe7
+
                 if (dr.HasRows)
                 {
                     while (dr.Read())
@@ -137,19 +120,11 @@ namespace MyPersonalApp.DAL
         {
             using (SqlConnection conn = new(GetConn()))
             {
-<<<<<<< HEAD
                 List<Employees> listemployee = new();
                 string strSql = @"select * from Employee where Name LIKE @Name
                                 order by Name";
                 SqlCommand cmd = new(strSql, conn);
                 cmd.Parameters.AddWithValue("@Name", "%" + Name + "%");
-=======
-                List <Employees> listemployee = new();
-                string strSql = @"select * from Employee where Name LIKE @Name
-                                order by Name";
-                SqlCommand cmd = new(strSql, conn);
-                cmd.Parameters.AddWithValue("@Name", "%"+Name+"%");
->>>>>>> e6eb58c7488093f510233ee9268d82d756604fe7
                 conn.Open();
 
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -202,11 +177,6 @@ namespace MyPersonalApp.DAL
                 {
                     conn.Open();
                     int rowsAffected = cmd.ExecuteNonQuery();
-<<<<<<< HEAD
-
-=======
-                        
->>>>>>> e6eb58c7488093f510233ee9268d82d756604fe7
                 }
                 catch (SqlException SqlEx)
                 {
@@ -239,12 +209,8 @@ namespace MyPersonalApp.DAL
 
                     throw new Exception($"Failed To Update Data: {SqlEx.Message}");
                 }
-
-<<<<<<< HEAD
                 return employee;
-=======
-                return employee;    
->>>>>>> e6eb58c7488093f510233ee9268d82d756604fe7
+
 
             }
         }
