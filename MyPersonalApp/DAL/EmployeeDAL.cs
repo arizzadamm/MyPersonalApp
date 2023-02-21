@@ -82,6 +82,11 @@ namespace MyPersonalApp.DAL
             throw new NotImplementedException();
         }
 
+        public Employees GetByPositionId(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         //public Employees GetByName(string Name)
         //{
         //    using (SqlConnection conn = new(GetConn()))

@@ -22,12 +22,31 @@ namespace MyPersonalApp.Controllers
             var results = _employee.GetAll();   
             return results;
         }
+        [HttpGet("ByPositionId")]
+        public Employees Get(int id) 
+        {
+            var results = _employee.GetByPositionId(id);
+            return results;
+        }
         [HttpGet("ByName")]
         public IEnumerable<Employees> Get(string Name)
         {
 
             var results = _employee.GetByName(Name);
-            return results;
+            return results.Select(r => new Employees
+            {
+                Name = r.Name
+            });
+            //List<Employees> employees = new();
+            //var results = _employee.GetByName(Name);
+            //foreach (var r in results)
+            //{
+            //    employees.Add(new Employees
+            //    {
+            //        Name = r.Name,
+            //    });
+            //}
+            //return employees;
         }
         [HttpPost]
         public IActionResult Post(Employees employee)

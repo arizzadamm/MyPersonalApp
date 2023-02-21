@@ -14,7 +14,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options=>options.UseSqlServer(
     builder.Configuration.GetConnectionString("CompanyConnection")));
 //DI
-builder.Services.AddScoped<IEmployee, EmployeeDAL>();
+builder.Services.AddScoped<IEmployee, EmployeeEF>();
 
 
 var app = builder.Build();
