@@ -224,5 +224,10 @@ namespace MyPersonalApp.DAL
         {
             return _config.GetConnectionString("CompanyConnection");
         }
+
+        public Position Insert(Position position)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

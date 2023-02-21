@@ -11,6 +11,7 @@ namespace MyPersonalApp.DAL
         public IEnumerable<Employees> GetByName(String Name);
 
         public Employees Insert(Employees employee);
+       // public Position Insert(Position position);
         public Employees Update(Employees employee);
         public void Delete(String Oid);
 
