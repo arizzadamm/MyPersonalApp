@@ -74,7 +74,24 @@ namespace MyPersonalApp.DAL
 
         public Employees Update(Employees employee)
             {
-                throw new NotImplementedException();
+                var updateemployee = GetByPositionId(employee.PositionId);
+            if (updateemployee == null) 
+            {
+                throw new Exception($"Data Employee id{employee.Id} tidak ada");
+
+            }
+            try
+            {
+                updateemployee.Name= employee.Name;
+                _dbcontext.SaveChanges();
+
+            }
+            catch (Exception Ex)
+            {
+
+                throw new Exception(Ex.Message);
+            }
+            return updateemployee;
             }
 
     }

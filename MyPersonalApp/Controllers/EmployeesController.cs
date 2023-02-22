@@ -123,13 +123,23 @@ namespace MyPersonalApp.Controllers
         //    }
         //}
         [HttpPut]
-        public IActionResult Put(Employees employee)
+        public IActionResult Put(EmployeeAddDTO employeeDTO)
         {
 
             try
             {
+                var employee = new Employees
+                {
+                    Name = employeeDTO.Name,
+                    PositionId = employeeDTO.PositionId
+                };
                 var editEmployee = _employee.Update(employee);
-                return Ok(editEmployee);
+                EmployeeGetDTO employeeGetDTO = new ()
+                {
+                    Name = employeeDTO.Name,
+                    PositionId = employeeDTO.PositionId
+                };
+                return Ok(employeeGetDTO);
             }
             catch (Exception ex)
             {
