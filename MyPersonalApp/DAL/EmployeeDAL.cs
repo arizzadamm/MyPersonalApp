@@ -8,7 +8,9 @@ namespace MyPersonalApp.DAL
     public class EmployeeDAL : IEmployee
     {
         private readonly IConfiguration _config;
+
         public EmployeeDAL(IConfiguration config) 
+
         {
             _config = config;
         }
@@ -19,7 +21,7 @@ namespace MyPersonalApp.DAL
             {
                 string strSql = @"DELETE FROM Employee WHERE Oid=@Oid";
                 SqlCommand cmd = new(strSql, conn);
-                cmd.Parameters.AddWithValue("@Oid",Oid);
+                cmd.Parameters.AddWithValue("@Oid", Oid);
 
                 try
                 {
@@ -33,20 +35,21 @@ namespace MyPersonalApp.DAL
                     throw new Exception($"Failed To Delete Data: {SqlEx.Message}");
                 }
 
-               
             }
         }
 
         public IEnumerable<Employees> GetAll()
         {
-            using (SqlConnection conn = new (GetConn()))
+            using (SqlConnection conn = new(GetConn()))
+
             {
                 List<Employees> listemployee = new();
                 string strSql = @"select * from Employee order by name asc";
                 SqlCommand cmd = new(strSql, conn);
                 conn.Open();
 
-                SqlDataReader dr= cmd.ExecuteReader();
+                SqlDataReader dr = cmd.ExecuteReader();
+
                 if (dr.HasRows)
                 {
                     while (dr.Read())
@@ -75,6 +78,11 @@ namespace MyPersonalApp.DAL
         }
 
         public Employees GetById(UniqueConstraint uniqueConstraint)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Employees GetByPositionId(int id)
         {
             throw new NotImplementedException();
         }
@@ -117,11 +125,11 @@ namespace MyPersonalApp.DAL
         {
             using (SqlConnection conn = new(GetConn()))
             {
-                List <Employees> listemployee = new();
+                List<Employees> listemployee = new();
                 string strSql = @"select * from Employee where Name LIKE @Name
                                 order by Name";
                 SqlCommand cmd = new(strSql, conn);
-                cmd.Parameters.AddWithValue("@Name", "%"+Name+"%");
+                cmd.Parameters.AddWithValue("@Name", "%" + Name + "%");
                 conn.Open();
 
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -174,7 +182,6 @@ namespace MyPersonalApp.DAL
                 {
                     conn.Open();
                     int rowsAffected = cmd.ExecuteNonQuery();
-                        
                 }
                 catch (SqlException SqlEx)
                 {
@@ -207,8 +214,8 @@ namespace MyPersonalApp.DAL
 
                     throw new Exception($"Failed To Update Data: {SqlEx.Message}");
                 }
+                return employee;
 
-                return employee;    
 
             }
         }
@@ -216,6 +223,11 @@ namespace MyPersonalApp.DAL
         private string GetConn()
         {
             return _config.GetConnectionString("CompanyConnection");
+        }
+
+        public Position Insert(Position position)
+        {
+            throw new NotImplementedException();
         }
     }
 }
