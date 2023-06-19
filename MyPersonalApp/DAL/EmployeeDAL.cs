@@ -229,5 +229,10 @@ namespace MyPersonalApp.DAL
         {
             throw new NotImplementedException();
         }
+
+        public void Delete(int PositionId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

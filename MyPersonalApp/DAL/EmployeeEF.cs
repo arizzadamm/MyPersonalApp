@@ -1,4 +1,5 @@
 ﻿using MyPersonalApp.Models;
+using System.Linq.Expressions;
 
 namespace MyPersonalApp.DAL
 {
@@ -94,5 +95,22 @@ namespace MyPersonalApp.DAL
             return updateemployee;
             }
 
+        public void Delete(int PositionId)
+        {
+            var deleteemployee = GetByPositionId(PositionId);
+            if (deleteemployee == null)
+                throw new Exception($"Data Position {PositionId} tidak ditemukan");
+            try
+            {
+                _dbcontext.Remove(deleteemployee);
+                _dbcontext.SaveChanges();
+            }
+            catch (Exception Ex)
+            {
+
+                throw new Exception(Ex.Message);
+            }
+     
+        }
     }
 }

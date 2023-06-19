@@ -12,9 +12,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options=>options.UseSqlServer(
-    builder.Configuration.GetConnectionString("CompanyConnection")));
+    builder.Configuration.GetConnectionString("CompanyConnection")).EnableSensitiveDataLogging());
 //DI
 builder.Services.AddScoped<IEmployee, EmployeeEF>();
+builder.Services.AddScoped<IPosition, PositionEF>();
 
 
 var app = builder.Build();

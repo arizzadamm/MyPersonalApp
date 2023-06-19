@@ -30,7 +30,8 @@ namespace MyPersonalApp.Controllers
                 {
                     Name= s.Name,
                     Email= s.Email,
-                    PositionId= s.PositionId
+                    PositionId= s.PositionId,
+                    PositionName = s.Positions
                 });
             }
             return lstemployeeGetDTO;
@@ -123,7 +124,7 @@ namespace MyPersonalApp.Controllers
         //    }
         //}
         [HttpPut]
-        public IActionResult Put(EmployeeAddDTO employeeDTO)
+        public IActionResult Put(int positionID, EmployeeAddDTO employeeDTO)
         {
 
             try
@@ -147,13 +148,13 @@ namespace MyPersonalApp.Controllers
             }
         }
         [HttpDelete]
-        public IActionResult Delete(String Oid)
+        public IActionResult Delete(int PositionId)
         {
 
             try
             {
-                 _employee.Delete(Oid);
-                return Ok($"Delete id {Oid} berhasil");
+                 _employee.Delete(PositionId);
+                return Ok($"Delete id {PositionId} berhasil");
             }
             catch (Exception ex)
             {
