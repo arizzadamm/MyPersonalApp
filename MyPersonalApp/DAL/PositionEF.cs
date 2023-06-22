@@ -11,11 +11,6 @@ namespace MyPersonalApp.DAL
             _dbcontext = dbContext;    
         }
 
-        public void Delete(int PositionId)
-        {
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<Position> GetAll()
         {
             var position = _dbcontext.Positions;
@@ -75,6 +70,24 @@ namespace MyPersonalApp.DAL
             return updatePosition;
         }
 
-      
+        public void Delete(int PositionId)
+        {
+            var deleteposition = GetByPositionId(PositionId);
+            if (deleteposition == null)
+                throw new Exception($"Data Position {PositionId} tidak ditemukan");
+            try
+            {
+                _dbcontext.Remove(deleteposition);
+                _dbcontext.SaveChanges();
+            }
+            catch (Exception Ex)
+            {
+
+                throw new Exception(Ex.Message);
+            }
+
+        }
+
+
     }
 }

@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using MyPersonalApp.DAL;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,9 @@ builder.Services.AddDbContext<AppDbContext>(options=>options.UseSqlServer(
 //DI
 builder.Services.AddScoped<IEmployee, EmployeeEF>();
 builder.Services.AddScoped<IPosition, PositionEF>();
+
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
 var app = builder.Build();
